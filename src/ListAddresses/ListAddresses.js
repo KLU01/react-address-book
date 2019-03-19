@@ -13,6 +13,11 @@ function ListAddresses (props) {
           {item.Telephone === undefined ? <p>Telephone: N/A</p> : <p>Telephone: {item.Telephone}</p>}
         </Card.Body>
       </Card>
+      <a href="#" className="btn btn-info btn-lg btn-block" onClick={props.delete.bind(null, item.key)}>
+        <span key={item.key} >
+        {'\uD83D\uDDD1'} Delete
+        </span>
+      </a>
     </ListGroup.Item>)
   return items;
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import ListAddresses from './ListAddresses/ListAddresses.js';
 import { generate } from 'randomstring';
+import ListAddresses from './ListAddresses/ListAddresses.js';
 
 class App extends Component {
   state = {
@@ -36,6 +36,16 @@ class App extends Component {
       }
     ]
   }
+
+  deleteAddressHandler = (key, e) => {
+    let address = [...this.state.address];
+    let deleteAddress = address.findIndex((item) => item.key===key);
+    if (window.confirm('Are you sure you want to delete?')) {
+      address.splice(deleteAddress, 1);
+      this.setState({"address" : address});
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -43,7 +53,7 @@ class App extends Component {
           <header>
             <h1>Address Book</h1>
           </header>
-            <ListAddresses address={this.state.address} />
+            <ListAddresses address={this.state.address} delete={this.deleteAddressHandler}/>
         </Container>
       </div>
     );
