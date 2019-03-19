@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { generate } from 'randomstring';
 import ListAddresses from './ListAddresses/ListAddresses.js';
 
@@ -34,7 +36,11 @@ class App extends Component {
         LastName: "Wright",
         Birthday: "10/28/1967"
       }
-    ]
+    ],
+    FirstName: "",
+    LastName: "",
+    Birthday: "",
+    Telephone: "",
   }
 
   deleteAddressHandler = (key, e) => {
@@ -46,6 +52,22 @@ class App extends Component {
     }
   }
 
+  addAddressHandler = (event) => {
+    event.preventDefault();
+    let newAddress = {
+      key: generate(10),
+      FirstName: this.state.FirstName,
+      LastName: this.state.LastName,
+      Birthday: this.state.Birthday,
+      Telephone: this.state.Telephone
+    };
+    this.setState({address: [...this.state.address, newAddress]});
+    this.setState({FirstName: ""});
+    this.setState({LastName: ""});
+    this.setState({Birthday: ""});
+    this.setState({Telephone: ""});
+  }
+
   render() {
     return (
       <div className="App">
@@ -53,7 +75,24 @@ class App extends Component {
           <header>
             <h1>Address Book</h1>
           </header>
-            <ListAddresses address={this.state.address} delete={this.deleteAddressHandler}/>
+          <ListAddresses address={this.state.address} delete={this.deleteAddressHandler}/>
+          <h2>Add a Contact</h2>
+          <Form onSubmit={this.addAddressHandler}>
+            <Form.Label></Form.Label>
+            <Form.Control type="text" placeholder="Enter First Name" required
+              value={this.state.FirstName}
+              onChange={(e) => this.setState({FirstName: e.target.value})}/>
+            <Form.Control id="icon_prefix" type="text" placeholder="Enter Last Name" required
+              value={this.state.LastName}
+              onChange={(e) => this.setState({LastName: e.target.value})} />
+            <Form.Control type="date"
+              value={this.state.Birthday}
+              onChange={(e) => this.setState({Birthday: e.target.value})} />
+            <Form.Control type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+              value={this.state.Telephone}
+              onChange={(e) => this.setState({Telephone: e.target.value})} />
+            <Button className="btn btn-block" variant="primary" type="submit">Add Contact</Button>
+          </Form>
         </Container>
       </div>
     );
