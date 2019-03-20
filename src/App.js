@@ -34,13 +34,15 @@ class App extends Component {
         key: generate(10),
         FirstName: "Colleen",
         LastName: "Wright",
-        Birthday: "10/28/1967"
+        Birthday: "10/28/1967",
+        Telephone: ""
       }
     ],
     FirstName: "",
     LastName: "",
     Birthday: "",
     Telephone: "",
+    Filter: ""
   }
 
   deleteAddressHandler = (key, e) => {
@@ -75,10 +77,15 @@ class App extends Component {
           <header>
             <h1>Address Book</h1>
           </header>
-          <ListAddresses address={this.state.address} delete={this.deleteAddressHandler}/>
+          <input type="text" id="filter"
+            value={this.state.addressFilter}
+            onChange={(e) => this.setState({Filter: e.target.value})} />
+          <ListAddresses
+            address={this.state.address}
+            delete={this.deleteAddressHandler}
+            filter={this.state.Filter}/>
           <h2>Add a Contact</h2>
           <Form onSubmit={this.addAddressHandler}>
-            <Form.Label></Form.Label>
             <Form.Control type="text" placeholder="Enter First Name" required
               value={this.state.FirstName}
               onChange={(e) => this.setState({FirstName: e.target.value})}/>
@@ -89,9 +96,10 @@ class App extends Component {
               value={this.state.Birthday}
               onChange={(e) => this.setState({Birthday: e.target.value})} />
             <Form.Control type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+              placeholder="Enter Telephone Number in the Format: 012-345-6789"
               value={this.state.Telephone}
               onChange={(e) => this.setState({Telephone: e.target.value})} />
-            <Button className="btn btn-block" variant="primary" type="submit">Add Contact</Button>
+            <Button className="btn btn-info btn-block" variant="primary" type="submit">Add Contact</Button>
           </Form>
         </Container>
       </div>
