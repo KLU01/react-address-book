@@ -35,7 +35,21 @@ class App extends Component {
         FirstName: "Colleen",
         LastName: "Wright",
         Birthday: "10/28/1967",
-        Telephone: ""
+        Telephone: "200-250-7949"
+      },
+      {
+        key: generate(10),
+        FirstName: "James",
+        LastName: "Johnston",
+        Birthday: "5/11/1972",
+        Telephone: "200-645-3176"
+      },
+      {
+        key: generate(10),
+        FirstName: "Anna",
+        LastName: "Reyes",
+        Birthday: "9/10/1975",
+        Telephone: "200-707-8670"
       }
     ],
     FirstName: "",
@@ -76,10 +90,11 @@ class App extends Component {
         <Container>
           <header>
             <h1>Address Book</h1>
+            <input type="text" id="filter"
+              placeholder="Search..."
+              value={this.state.addressFilter}
+              onChange={(e) => this.setState({Filter: e.target.value})} />
           </header>
-          <input type="text" id="filter"
-            value={this.state.addressFilter}
-            onChange={(e) => this.setState({Filter: e.target.value})} />
           <ListAddresses
             address={this.state.address}
             delete={this.deleteAddressHandler}
